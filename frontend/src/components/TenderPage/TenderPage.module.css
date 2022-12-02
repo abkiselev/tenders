@@ -1,0 +1,56 @@
+.tender {
+    margin-top: 80px;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.back_link {
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px 15px 8px;
+}
+
+.back_link:hover {
+    text-decoration: none;
+}
+
+.table {
+    margin-top: 50px;
+	width: 100%;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+th,
+td {
+	padding: 15px;
+	background-color: rgba(255,255,255,0.2);
+    position: relative;
+    width: 200px;
+}
+
+th {
+	text-align: left;
+}
+
+
+
+td:hover {
+    background-color: rgba(218, 56, 56, 0.3);
+}
+
+td:hover:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -9999px;
+    bottom: -9999px;
+    background-color: rgba(218, 56, 56, 0.3);
+    z-index: -1;
+}

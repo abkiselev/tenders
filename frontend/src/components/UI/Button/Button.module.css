@@ -1,0 +1,22 @@
+.button_main {
+    border: none;
+    border-radius: 3px;
+    background-color: bisque;
+    padding: 5px 20px 8px;
+    font-size: inherit;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .05s ease-in-out;
+}
+
+.button_main:hover {
+    background-color: darkorange;
+    color: white;
+}
+
+.button_main:disabled {
+    pointer-events: none;    
+    background-color: grey;
+    color: black;
+    cursor: progress;
+}
