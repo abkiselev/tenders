@@ -8,6 +8,7 @@ import Form from '../UI/Form/Form'
 import Input from '../UI/InputText/InputText'
 import Loader from '../Loader/Loader'
 import { getTender } from '../../helpers/fetching'
+import Counter from '../Counter/Counter'
 
 function TenderPage() {
   const { tenderName } = useParams()
@@ -17,32 +18,60 @@ function TenderPage() {
   const [formValues, setFormValues] = useState({})
   const [formDisbled, setFormDisbled] = useState(false)
   const [timeFromStart, setTimeFromStart] = useState(null)
-  const [activeParticirant, setActiveParticirant] = useState(null)
+  const [activeParticipant, setActiveParticirant] = useState(null)
+  const [motionCounter, setMotionCounter] = useState(null)
+  const [needRefetch, setNeedRefetch] = useState(false)
 
-  // console.log(tenderData)
   useEffect(() => {
     fetchTender()
-  }, [])
+  }, [needRefetch])
+
+  console.log( `ререндер`)
+
+  // useEffect(() => {
+  //   const interval =
+  //     motionCounter > 0 &&
+  //     setInterval(() => {
+  //       setMotionCounter(motionCounter - 1)
+  //     }, 1000)
+
+  //   return () => clearInterval(interval)
+  // }, [motionCounter])
 
   function fetchTender() {
     getTender(tenderName).then((res) => {
       setTenderData(res)
       res.participants.length !== 0 && setTimers(res.createdAt, res.participants.length)
       setIsLoading(false)
+      console.log('фетч');
+    })
+  }
+
+  function refetchTender() {
+    getTender(tenderName).then((res) => {
+      setTenderData(res)
     })
   }
 
   function setTimers(startTime, participantsQuantity) {
-    console.log(participantsQuantity)
+    console.log('сеттаймерс');
     const date = new Date(startTime)
-    const now = Date.now()
-    const gapMinutes = (now - date.getTime(startTime)) / 1000 / 60
+    const gapMinutes = (Date.now() - date.getTime(startTime)) / 1000 / 60
     const gapRoundes = gapMinutes / 2
     const activeParticipant = Math.floor(gapRoundes % participantsQuantity)
     setActiveParticirant(activeParticipant)
     console.log(activeParticipant)
     setTimeFromStart(gapMinutes)
+
+    const offset = (((Date.now() - date.getTime(startTime)) / 1000 / 60 / 2) % 1) * 120
+    // setCounter(offset)
+
+    const remainingSeconds = 120 - offset
+    setMotionCounter(remainingSeconds)
+    console.log(remainingSeconds)
   }
+
+  function setCounter(offset) {}
 
   const openAddPopup = () => {
     setIsAddPopupOpen(true)
@@ -93,7 +122,14 @@ function TenderPage() {
                           {participant.isOnline ? 'online' : 'offline'}
                         </p>
                       </div>
-                      {index === activeParticirant && <p className={styles.timer}>ход: 0:55</p>}
+                      {index === activeParticipant && (
+                        <>
+                        <Counter initialValue={motionCounter} setNeedRefetch={setNeedRefetch} />
+                        {/* <p className={styles.timer}>
+                          {motionCounter}
+                        </p> */}
+                        </>
+                      )}
                       <p className={styles.bet}>
                         {participant.price === 0 ? 'нет ставки' : participant.price}
                       </p>

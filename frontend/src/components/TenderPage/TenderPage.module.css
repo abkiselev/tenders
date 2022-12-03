@@ -53,14 +53,6 @@
     margin: 0;
 }
 
-.timer {
-    background-color: lightcoral;  
-    border-radius: 5px;
-    text-align: center;
-    padding: 5px 25px;
-    font-size: 18px;
-}
-
 .bet {
     font-size: 18px;
     font-weight: bold;
