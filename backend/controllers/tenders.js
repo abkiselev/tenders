@@ -12,12 +12,12 @@ module.exports.getTenders = (req, res, next) => {
 
 module.exports.getTender = async (req, res, next) => {
   try {
-    const tender = await Tender.findOne(req.params)
+    const tender = await Tender.findOne({ url: req.params.tenderName })
 
     if (!tender) {
       throw new NotFoundError('Тендер не найден')
     }
-    return res.send({ tender })
+    return res.send(tender)
   } catch (error) {
     return next(error)
   }

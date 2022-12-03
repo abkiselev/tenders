@@ -19,15 +19,11 @@ function MainPage() {
   const [isChecked, setIsChecked] = useState(false)
   const [formDisbled, setFormDisbled] = useState(false)
 
-  console.log(tendersList)
-
   useEffect(() => {
-    console.log('эффект')
     fetchTenderslist()
   }, [])
 
   function fetchTenderslist() {
-    console.log('фетчинг')
     getTenders().then((res) => {
       setTendersList(res)
       setIsLoading(false)
@@ -78,13 +74,17 @@ function MainPage() {
       .then((res) => navigate(`/${res.url}`))
       .finally(setFormDisbled(false))
   }
-  console.log(isLoading)
 
   return (
     <>
       <main>
         <section>
-          <Heading title="Список торгов" buttonType="button" buttonTitle="Создать тендер" onClick={openAddPopup} />
+          <Heading
+            title='Список торгов'
+            buttonType='button'
+            buttonTitle='Создать тендер'
+            onClick={openAddPopup}
+          />
 
           {isLoading ? (
             <Loader />
@@ -96,12 +96,18 @@ function MainPage() {
         </section>
       </main>
 
-      <Popup title="Создать тендер" isOpen={isAddPopupOpen} onCloseClick={closeAddPopup}>
-        <Form onSubmit={handleAddTender} buttonText="Создать" disabled={formDisbled}>
-          <Input type="text" name="name" placeholder="Название тендера" onChange={handleFormValues} required />
+      <Popup title='Создать тендер' isOpen={isAddPopupOpen} onCloseClick={closeAddPopup}>
+        <Form onSubmit={handleAddTender} buttonText='Создать' disabled={formDisbled}>
+          <Input
+            type='text'
+            name='name'
+            placeholder='Название тендера'
+            onChange={handleFormValues}
+            required
+          />
           <CheckBox
-            name="need_participants"
-            label="подключить 3 тестовых участников"
+            name='need_participants'
+            label='подключить 3 тестовых участников'
             onChange={() => setIsChecked(!isChecked)}
           />
         </Form>
