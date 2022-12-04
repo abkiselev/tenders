@@ -2,13 +2,14 @@ import styles from './Counter.module.css'
 import { useEffect, useState } from 'react'
 import { countCounterValue } from '../../helpers/countCounterValue'
 
-function Counter({ tenderStartDate, initialValue, setIsNextMotion }) {
+function Counter({ tenderStartDate, initialValue, goToNextMotion }) {
   const [value, setValue] = useState(initialValue)
 
   console.log('counter rerender')
+  console.log(value)
 
   useEffect(() => {
-    value < 1 && setIsNextMotion((prev) => prev + 1)
+    value < 1 && goToNextMotion()
 
     const interval =
       value > 0 &&

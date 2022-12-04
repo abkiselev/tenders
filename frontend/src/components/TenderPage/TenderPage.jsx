@@ -1,11 +1,8 @@
 import styles from './TenderPage.module.css'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Popup from '../Popup/Popup'
 import { Link } from 'react-router-dom'
 import Heading from '../Heading/Heading'
-import Form from '../UI/Form/Form'
-import Input from '../UI/InputText/InputText'
 import Loader from '../Loader/Loader'
 import { getTender } from '../../helpers/fetching'
 import Counter from '../Counter/Counter'
@@ -13,9 +10,9 @@ import { countCounterValue } from '../../helpers/countCounterValue'
 
 function TenderPage() {
   const { tenderName } = useParams()
+  const [isLoading, setIsLoading] = useState(true)
   const [tenderData, setTenderData] = useState({})
   const [tenderStartDate, setTenderStartDate] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
   const [activeParticipant, setActiveParticipant] = useState(null)
   const [initialCounterValue, setInitialCounterValue] = useState(null)
   const [isNextMotion, setIsNextMotion] = useState(0)
@@ -24,8 +21,13 @@ function TenderPage() {
     fetchTender()
   }, [isNextMotion])
 
+  function goToNextMotion(){
+    console.log('to next motion');
+    setIsNextMotion(prev => prev + 1)
+  }
+
   console.log(`ререндер`)
-  console.log(isNextMotion)
+  console.log(activeParticipant)
 
   function fetchTender() {
     getTender(tenderName).then((res) => {
@@ -33,14 +35,14 @@ function TenderPage() {
       const startTime = date.getTime(res.createdAt)
       setTenderStartDate(startTime)
 
-      res.participants.length !== 0 && setTimers(startTime, res.participants.length)
+      res.participants.length !== 0 && setParameters(startTime, res.participants.length)
       setTenderData(res)
 
       setIsLoading(false)
     })
   }
 
-  function setTimers(startTime, participantsQuantity) {
+  function setParameters(startTime, participantsQuantity) {
     const { remainingSeconds, gapRoundes } = countCounterValue(startTime)
     setInitialCounterValue(remainingSeconds)
     setActiveParticipant(Math.floor(gapRoundes % participantsQuantity))
@@ -49,7 +51,9 @@ function TenderPage() {
   return (
     <main>
       {isLoading ? (
-        <Loader />
+        <div className={styles.loader}>
+          <Loader />
+        </div>
       ) : !tenderData.url ? (
         <p>такого тендера не существует</p>
       ) : (
@@ -81,7 +85,7 @@ function TenderPage() {
                         <Counter
                           tenderStartDate={tenderStartDate}
                           initialValue={initialCounterValue}
-                          setIsNextMotion={setIsNextMotion}
+                          goToNextMotion={goToNextMotion}
                         />
                       </>
                     )}

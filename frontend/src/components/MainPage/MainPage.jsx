@@ -1,3 +1,4 @@
+import styles from './MainPage.module.css'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Popup from '../Popup/Popup'
@@ -76,7 +77,7 @@ function MainPage() {
         if (res.url) {
           navigate(`/${res.url}`)
         } else {
-          console.log(res.response.data.message);
+          console.log(res.response.data.message)
           setFormErrorMessage(res.response.data.message)
           setFormDisabled(false)
         }
@@ -99,7 +100,9 @@ function MainPage() {
           />
 
           {isLoading ? (
-            <Loader />
+            <div className={styles.loader}>
+              <Loader />
+            </div>
           ) : tendersList.length < 0 ? (
             <p>пока тендеров нет...</p>
           ) : (

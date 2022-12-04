@@ -2,6 +2,14 @@
     margin-top: 80px;
 }
 
+.loader {
+    display: grid;
+    width: 100%;
+    height: 40vh;
+    align-items: center;
+    place-items: center;
+}
+
 .heading {
     display: flex;
     align-items: center;
@@ -41,7 +49,6 @@
 }
 
 ._active {    
-    /* border: 1px solid green; */
     background-color: rgba(225, 255, 231, 0.39);
 }
 

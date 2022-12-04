@@ -34,7 +34,9 @@ function MenuBar() {
         <Button type='button' text='Пояснения' onClick={openPopup} />
       </header>
 
-      <Popup title='Некоторые пояснения' isOpen={isAboutPopupOpen} onCloseClick={closePopup}>попап попаппопаппопаппопаппопаппопаппопаппопаппопаппопаппопаппопап</Popup>
+      <Popup title='Некоторые пояснения' isOpen={isAboutPopupOpen} onCloseClick={closePopup}>
+        попап попаппопаппопаппопаппопаппопаппопаппопаппопаппопаппопаппопап
+      </Popup>
     </>
   )
 }
