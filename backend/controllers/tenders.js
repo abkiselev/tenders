@@ -34,7 +34,7 @@ module.exports.createTender = async (req, res, next) => {
       return next(new BadRequestError('Некорректные данные для создания'))
     }
     if (error.code === 11000) {
-      return next(new ConflictError('Такой тендер уже существует'))
+      return next(new ConflictError('Такое название уже существует'))
     }
     return next(error)
   }

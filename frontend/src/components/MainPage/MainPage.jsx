@@ -17,7 +17,8 @@ function MainPage() {
   const [isAddPopupOpen, setIsAddPopupOpen] = useState(false)
   const [formValues, setFormValues] = useState({})
   const [isChecked, setIsChecked] = useState(false)
-  const [formDisbled, setFormDisbled] = useState(false)
+  const [formDisabled, setFormDisabled] = useState(false)
+  const [formErrorMessage, setFormErrorMessage] = useState('')
 
   useEffect(() => {
     fetchTenderslist()
@@ -44,7 +45,7 @@ function MainPage() {
 
   const handleAddTender = (e) => {
     e.preventDefault()
-    setFormDisbled(true)
+    setFormDisabled(true)
 
     const data = {
       name: formValues.name,
@@ -71,8 +72,19 @@ function MainPage() {
     }
 
     addTender(data)
-      .then((res) => navigate(`/${res.url}`))
-      .finally(setFormDisbled(false))
+      .then((res) => {
+        if (res.url) {
+          navigate(`/${res.url}`)
+        } else {
+          console.log(res.response.data.message);
+          setFormErrorMessage(res.response.data.message)
+          setFormDisabled(false)
+        }
+      })
+      .catch((err) => {
+        setFormErrorMessage(err.message)
+        setFormDisabled(false)
+      })
   }
 
   return (
@@ -97,7 +109,12 @@ function MainPage() {
       </main>
 
       <Popup title='Создать тендер' isOpen={isAddPopupOpen} onCloseClick={closeAddPopup}>
-        <Form onSubmit={handleAddTender} buttonText='Создать' disabled={formDisbled}>
+        <Form
+          onSubmit={handleAddTender}
+          buttonText='Создать'
+          disabled={formDisabled}
+          error={formErrorMessage}
+        >
           <Input
             type='text'
             name='name'

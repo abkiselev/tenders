@@ -28,6 +28,7 @@ export const addTender = async (data) => {
     console.log(tender.data)
     return tender.data
   } catch (error) {
+    console.log(error)
     return error
   }
 }

@@ -1,25 +1,30 @@
 import styles from './Counter.module.css'
 import { useEffect, useState } from 'react'
+import { countCounterValue } from '../../helpers/countCounterValue'
 
-function Counter({ initialValue, setNeedRefetch }) {
+function Counter({ tenderStartDate, initialValue, setIsNextMotion }) {
   const [value, setValue] = useState(initialValue)
 
-  console.log(`страница ${Math.floor(value / 60)} мин ${Math.floor(value % 60)} сек `)
+  console.log('counter rerender')
 
   useEffect(() => {
-    const interval =
-      value > 1 &&
-      setInterval(() => {
-        setValue(value - 1)
-      }, 1000)
+    value < 1 && setIsNextMotion((prev) => prev + 1)
 
-    value < 1 && setNeedRefetch(true)
+    const interval =
+      value > 0 &&
+      setInterval(() => {
+        const { remainingSeconds } = countCounterValue(tenderStartDate)
+        setValue(remainingSeconds)
+      }, 1000)
 
     return () => clearInterval(interval)
   }, [value])
 
-  return <p className={styles.timer}>{`${Math.floor(value / 60)}м. ${Math.floor(value % 60)}с.`}</p>
-  // return <p className={styles.timer}>{(value / 60).toFixed(2).replace('.', ':')}</p>
+  return (
+    <p className={`${styles.timer} ${value < 60 && styles._orange} ${value < 30 && styles._red}`}>
+      {`${Math.floor(value / 60)}м. ${Math.floor(value % 60)}с.`}
+    </p>
+  )
 }
 
 export default Counter

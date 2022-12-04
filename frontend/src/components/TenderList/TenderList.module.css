@@ -11,6 +11,17 @@
     gap: 20px;
 }
 
+.listItem_link {
+    width: 100%;
+}
+
+.listItem_link:hover {
+    text-decoration: none;
+    -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
 .listItem {    
     display: flex;
     flex-direction: column;
@@ -19,6 +30,7 @@
     padding: 20px;
     border: solid 1px grey;
     border-radius: 5px;
+    min-height: 120px;
 }
 
 .title {

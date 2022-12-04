@@ -6,17 +6,14 @@ function TenderList({ list }) {
     <section className={styles.tenderList}>
       <ul className={styles.list}>
         {list.map((tender, index) => (
-          <li key={index} className={styles.listItem}>
-            <Link to={tender.url}>
+          <Link key={index} className={styles.listItem_link} to={tender.url}>
+            <li className={styles.listItem}>
               <h2 className={styles.title}>{tender.name}</h2>
-            </Link>
-            <div>
-              <p className={styles.bullits}>участников: {tender.participants.length}</p>
-              {/* <p className={styles.bullits}>статус: не завершен</p>
-              <p className={styles.bullits}>дата начала: </p> */}
-            </div>
-            <Link to={tender.url}>Смотреть</Link>
-          </li>
+              <div>
+                <p className={styles.bullits}>участников: {tender.participants.length}</p>
+              </div>
+            </li>
+          </Link>
         ))}
       </ul>
     </section>
