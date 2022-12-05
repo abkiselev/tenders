@@ -7,7 +7,7 @@ import Heading from '../Heading/Heading'
 import { getTenders, addTender } from '../../helpers/fetching'
 import Form from '../UI/Form/Form'
 import Input from '../UI/InputText/InputText'
-import CheckBox from '../UI/CheckBox/CheckBox'
+import CheckBox from '../UI/Select/Select'
 import { transliterate } from '../../helpers/transliterate'
 import Loader from '../Loader/Loader'
 
@@ -17,7 +17,7 @@ function MainPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [isAddPopupOpen, setIsAddPopupOpen] = useState(false)
   const [formValues, setFormValues] = useState({})
-  const [isChecked, setIsChecked] = useState(false)
+  const [fakeParticipantsQuantity, setFakeParticipantsQuantity] = useState(0)
   const [formDisabled, setFormDisabled] = useState(false)
   const [formErrorMessage, setFormErrorMessage] = useState('')
 
@@ -48,28 +48,18 @@ function MainPage() {
     e.preventDefault()
     setFormDisabled(true)
 
+    const participants = fakeParticipantsQuantity
+      ? Array.from({ length: fakeParticipantsQuantity }, (_, index) => ({
+          name: `Тестовый участник ${index + 1}`,
+          price: 0,
+          isOnline: false,
+        }))
+      : []
+
     const data = {
       name: formValues.name,
       url: transliterate(formValues.name),
-      participants: isChecked
-        ? [
-            {
-              name: 'Тестовый участник 1',
-              price: 0,
-              isOnline: false,
-            },
-            {
-              name: 'Тестовый участник 2',
-              price: 0,
-              isOnline: false,
-            },
-            {
-              name: 'Тестовый участник 3',
-              price: 0,
-              isOnline: false,
-            },
-          ]
-        : [],
+      participants,
     }
 
     addTender(data)
@@ -126,9 +116,8 @@ function MainPage() {
             required
           />
           <CheckBox
-            name='need_participants'
-            label='подключить 3 тестовых участников'
-            onChange={() => setIsChecked(!isChecked)}
+            name='participants_quantity'
+            onChange={(e) => setFakeParticipantsQuantity(e.target.value)}
           />
         </Form>
       </Popup>

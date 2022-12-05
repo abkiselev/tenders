@@ -3,7 +3,6 @@ import Loader from '../../Loader/Loader'
 import Button from '../Button/Button'
 
 function Form({ children, error, onSubmit, buttonText, disabled }) {
-  console.log(disabled);
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       <p className={styles.error}>{error}</p>

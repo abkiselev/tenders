@@ -1,4 +1,4 @@
-const counterDurationSeconds = 120
+export const counterDurationSeconds = 120
 
 export const countCounterValue = (tenderStartDate) => {
   const gapMinutes = (Date.now() - tenderStartDate) / 1000 / 60

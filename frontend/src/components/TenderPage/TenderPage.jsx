@@ -6,7 +6,7 @@ import Heading from '../Heading/Heading'
 import Loader from '../Loader/Loader'
 import { getTender } from '../../helpers/fetching'
 import Counter from '../Counter/Counter'
-import { countCounterValue } from '../../helpers/countCounterValue'
+import { counterDurationSeconds, countCounterValue } from '../../helpers/countCounterValue'
 
 function TenderPage() {
   const { tenderName } = useParams()
@@ -15,19 +15,21 @@ function TenderPage() {
   const [tenderStartDate, setTenderStartDate] = useState(null)
   const [activeParticipant, setActiveParticipant] = useState(null)
   const [initialCounterValue, setInitialCounterValue] = useState(null)
-  const [isNextMotion, setIsNextMotion] = useState(0)
 
   useEffect(() => {
     fetchTender()
-  }, [isNextMotion])
+  }, [])
 
-  function goToNextMotion(){
-    console.log('to next motion');
-    setIsNextMotion(prev => prev + 1)
+  function goToNextMotion() {
+    // если НЕ надо обновлять ставки с сервера после окончания хода
+    setInitialCounterValue(counterDurationSeconds)
+    setActiveParticipant(
+      activeParticipant === tenderData.participants.length - 1 ? 0 : activeParticipant + 1
+    )
+
+    // если надо обновлять ставки с сервера
+    // fetchTender()
   }
-
-  console.log(`ререндер`)
-  console.log(activeParticipant)
 
   function fetchTender() {
     getTender(tenderName).then((res) => {
@@ -81,13 +83,11 @@ function TenderPage() {
                       <p className={styles.status}>{participant.isOnline ? 'online' : 'offline'}</p>
                     </div>
                     {index === activeParticipant && (
-                      <>
-                        <Counter
-                          tenderStartDate={tenderStartDate}
-                          initialValue={initialCounterValue}
-                          goToNextMotion={goToNextMotion}
-                        />
-                      </>
+                      <Counter
+                        tenderStartDate={tenderStartDate}
+                        initialValue={initialCounterValue}
+                        goToNextMotion={goToNextMotion}
+                      />
                     )}
                     <p className={styles.bet}>
                       {participant.price === 0 ? 'нет ставки' : participant.price}
