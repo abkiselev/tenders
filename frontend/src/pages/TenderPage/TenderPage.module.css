@@ -1,0 +1,73 @@
+.tender {
+    margin-top: 80px;
+}
+
+.loader {
+    display: grid;
+    width: 100%;
+    height: 40vh;
+    align-items: center;
+    place-items: center;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.start {
+    margin: 0;
+    text-align: right;
+}
+
+.back_link {
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px 15px 8px;
+}
+
+.back_link:hover {
+    text-decoration: none;
+}
+
+.list {
+    margin-top: 50px;
+    padding: 0;
+	width: 100%;
+    list-style-type: none;
+}
+
+.partisipant {
+    border-radius: 5px;
+    border: 1px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+}
+
+._active {    
+    background-color: rgba(225, 255, 231, 0.39);
+}
+
+.head {
+    width: 300px;
+}
+
+.name {
+    font-size: 18px;
+    margin: 0;
+}
+
+.status {
+    margin: 0;
+}
+
+.bet {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    width: 100px;
+}

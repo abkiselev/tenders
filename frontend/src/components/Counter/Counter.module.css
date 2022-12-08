@@ -1,0 +1,17 @@
+.timer {
+    background-color: lightgreen;  
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px 25px 6px;
+    margin: 0;
+    font-size: 18px;
+}
+
+._orange {
+    background-color: orange; 
+    
+}
+
+._red {
+    background-color: rgb(255, 119, 119); 
+}

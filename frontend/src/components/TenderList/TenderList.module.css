@@ -1,0 +1,44 @@
+.tenderList {
+    margin-top: 50px;
+}
+
+.list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template: auto / repeat(auto-fit,minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.listItem_link {
+    width: 100%;
+    height: fit-content;
+}
+
+.listItem_link:hover {
+    text-decoration: none;
+    -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.listItem {    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 20px;
+    border: solid 1px grey;
+    border-radius: 5px;
+}
+
+.title {
+    margin: 0;
+    font-size: 20px;
+}
+
+.bullits {
+    margin: 0;
+    font-size: 14px;
+}
