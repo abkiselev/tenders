@@ -13,13 +13,9 @@ const { requestLogger, errorLogger } = require('./middlewares/logger')
 const { PORT = 5000 } = process.env
 const app = express()
 
-mongoose.connect(
-  'mongodb+srv://leton:Sy0sx1cN7GTadXUP@cluster0.ulbz8nl.mongodb.net/tenders?retryWrites=true&w=majority',
-  // 'mongodb://localhost:27017/tenders',
-  {
-    useNewUrlParser: true,
-  }
-)
+mongoose.connect('mongodb://localhost:27017/tenders', {
+  useNewUrlParser: true,
+})
 
 app.use(helmet())
 app.use(
