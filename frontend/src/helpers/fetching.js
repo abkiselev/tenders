@@ -14,10 +14,9 @@ export const getTenders = async () => {
 export const getTender = async (name) => {
   try {
     const tender = await axios.get(`${BASE_URL}/tenders/${name}`)
-    console.log(tender.data)
     return tender.data
   } catch (error) {
-    console.log(error);
+    console.log(error)
     return error
   }
 }
@@ -25,7 +24,6 @@ export const getTender = async (name) => {
 export const addTender = async (data) => {
   try {
     const tender = await axios.post(`${BASE_URL}/tenders`, data)
-    console.log(tender.data)
     return tender.data
   } catch (error) {
     console.log(error)

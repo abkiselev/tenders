@@ -1,6 +1,6 @@
-import MainPage from '../components/MainPage/MainPage'
-import TenderPage from '../components/TenderPage/TenderPage'
-import ErrorPage from '../error'
+import MainPage from '../pages/MainPage/MainPage'
+import TenderPage from '../pages/TenderPage/TenderPage'
+import ErrorPage from '../components/Error/Error'
 
 const routes = () => [
   {

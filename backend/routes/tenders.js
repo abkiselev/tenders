@@ -4,23 +4,8 @@ const { getTenders, getTender, createTender } = require('../controllers/tenders'
 
 router.get('/', getTenders)
 
-router.get(
-  '/:tenderName',
-  // celebrate({
-  //   params: Joi.object().keys(isValidUserId).unknown(true),
-  // }),
-  getTender
-)
+router.get('/:tenderName', getTender)
 
-router.post(
-  '/',
-  // celebrate({
-  //   body: Joi.object().keys({
-  //     name: Joi.string().required().min(2).max(30),
-  //     about: Joi.string().required().min(2).max(30),
-  //   }),
-  // }),
-  createTender
-)
+router.post('/', createTender)
 
 module.exports = router

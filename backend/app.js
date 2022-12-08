@@ -13,16 +13,21 @@ const { requestLogger, errorLogger } = require('./middlewares/logger')
 const { PORT = 5000 } = process.env
 const app = express()
 
-mongoose.connect(process.env.MongoURI, {
-  useNewUrlParser: true,
-})
-
+mongoose.connect(
+  'mongodb+srv://leton:Sy0sx1cN7GTadXUP@cluster0.ulbz8nl.mongodb.net/tenders?retryWrites=true&w=majority',
+  // 'mongodb://localhost:27017/tenders',
+  {
+    useNewUrlParser: true,
+  }
+)
 
 app.use(helmet())
-app.use(cors({
-  origin: "http://localhost:3000",
-  credentials: true
-}))
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'https://tenders.ab-kiselev.ru'],
+    credentials: true,
+  })
+)
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))

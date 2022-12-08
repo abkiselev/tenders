@@ -26,3 +26,7 @@
 .links {
   list-style-type: none;
 }
+
+.link_github {
+  color: blue;
+}

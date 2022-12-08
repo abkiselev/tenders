@@ -2,10 +2,11 @@ import styles from './TenderPage.module.css'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import Heading from '../Heading/Heading'
-import Loader from '../Loader/Loader'
+import Error from '../../components/Error/Error'
+import Heading from '../../components/Heading/Heading'
+import Loader from '../../components/Loader/Loader'
 import { getTender } from '../../helpers/fetching'
-import Counter from '../Counter/Counter'
+import Counter from '../../components/Counter/Counter'
 import { counterDurationSeconds, countCounterValue } from '../../helpers/countCounterValue'
 
 function TenderPage() {
@@ -23,23 +24,25 @@ function TenderPage() {
   function goToNextMotion() {
     // если НЕ надо обновлять ставки с сервера после окончания хода
     setInitialCounterValue(counterDurationSeconds)
-    setActiveParticipant(
-      activeParticipant === tenderData.participants.length - 1 ? 0 : activeParticipant + 1
-    )
+    setActiveParticipant(activeParticipant === tenderData.participants.length - 1 ? 0 : activeParticipant + 1)
 
     // если надо обновлять ставки с сервера
-    // fetchTender()
+    // рефетч и ререндер компонента
   }
 
   function fetchTender() {
     getTender(tenderName).then((res) => {
+      if (!res.url) {
+        setIsLoading(false)
+        return
+      }
+
       const date = new Date(res.createdAt)
       const startTime = date.getTime(res.createdAt)
       setTenderStartDate(startTime)
 
       res.participants.length !== 0 && setParameters(startTime, res.participants.length)
       setTenderData(res)
-
       setIsLoading(false)
     })
   }
@@ -57,10 +60,10 @@ function TenderPage() {
           <Loader />
         </div>
       ) : !tenderData.url ? (
-        <p>такого тендера не существует</p>
+        <Error text="Такого тендера не существует" />
       ) : (
         <>
-          <Link className={styles.back_link} to='/'>
+          <Link className={styles.back_link} to="/">
             &lsaquo; к списку тендеров
           </Link>
 
@@ -74,9 +77,7 @@ function TenderPage() {
                 tenderData.participants.map((participant, index) => (
                   <li
                     key={participant.name}
-                    className={`${styles.partisipant} ${
-                      index === activeParticipant && styles._active
-                    }`}
+                    className={`${styles.partisipant} ${index === activeParticipant && styles._active}`}
                   >
                     <div className={styles.head}>
                       <h2 className={styles.name}>{participant.name}</h2>
@@ -89,9 +90,7 @@ function TenderPage() {
                         goToNextMotion={goToNextMotion}
                       />
                     )}
-                    <p className={styles.bet}>
-                      {participant.price === 0 ? 'нет ставки' : participant.price}
-                    </p>
+                    <p className={styles.bet}>{participant.price === 0 ? 'нет ставки' : participant.price}</p>
                   </li>
                 ))
               )}

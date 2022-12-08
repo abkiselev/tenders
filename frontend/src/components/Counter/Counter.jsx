@@ -7,17 +7,13 @@ function Counter({ tenderStartDate, initialValue, goToNextMotion }) {
 
   const formattedCounter = formatTime(value)
 
-  console.log(value)
-
   useEffect(() => {
     value < 1 && goToNextMotion()
 
-    const interval =
-      // value > 0 &&
-      setInterval(() => {
-        const { remainingSeconds } = countCounterValue(tenderStartDate)
-        setValue(remainingSeconds)
-      }, 1000)
+    const interval = setInterval(() => {
+      const { remainingSeconds } = countCounterValue(tenderStartDate)
+      setValue(remainingSeconds)
+    }, 1000)
 
     return () => clearInterval(interval)
   }, [value])
@@ -29,11 +25,8 @@ function Counter({ tenderStartDate, initialValue, goToNextMotion }) {
     return [minutes.toString().padStart(2, '0'), seconds.toString().padStart(2, '0')].join(':')
   }
 
-
   return (
-    <p className={`${styles.timer} ${value < 60 && styles._orange} ${value < 30 && styles._red}`}>
-      {formattedCounter}
-    </p>
+    <p className={`${styles.timer} ${value < 60 && styles._orange} ${value < 30 && styles._red}`}>{formattedCounter}</p>
   )
 }
 

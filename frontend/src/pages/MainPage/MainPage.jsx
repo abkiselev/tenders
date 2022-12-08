@@ -1,15 +1,15 @@
 import styles from './MainPage.module.css'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Popup from '../Popup/Popup'
-import TenderList from '../TenderList/TenderList'
-import Heading from '../Heading/Heading'
+import Popup from '../../components/Popup/Popup'
+import TenderList from '../../components/TenderList/TenderList'
+import Heading from '../../components/Heading/Heading'
 import { getTenders, addTender } from '../../helpers/fetching'
-import Form from '../UI/Form/Form'
-import Input from '../UI/InputText/InputText'
-import CheckBox from '../UI/Select/Select'
+import Form from '../../components/UI/Form/Form'
+import Input from '../../components/UI/InputText/InputText'
+import CheckBox from '../../components/UI/Select/Select'
 import { transliterate } from '../../helpers/transliterate'
-import Loader from '../Loader/Loader'
+import Loader from '../../components/Loader/Loader'
 
 function MainPage() {
   const navigate = useNavigate()
@@ -82,18 +82,13 @@ function MainPage() {
     <>
       <main>
         <section>
-          <Heading
-            title='Список торгов'
-            buttonType='button'
-            buttonTitle='Создать тендер'
-            onClick={openAddPopup}
-          />
+          <Heading title="Список торгов" buttonType="button" buttonTitle="Создать тендер" onClick={openAddPopup} />
 
           {isLoading ? (
             <div className={styles.loader}>
               <Loader />
             </div>
-          ) : tendersList.length < 0 ? (
+          ) : tendersList.length < 1 ? (
             <p>пока тендеров нет...</p>
           ) : (
             <TenderList list={tendersList} />
@@ -101,24 +96,10 @@ function MainPage() {
         </section>
       </main>
 
-      <Popup title='Создать тендер' isOpen={isAddPopupOpen} onCloseClick={closeAddPopup}>
-        <Form
-          onSubmit={handleAddTender}
-          buttonText='Создать'
-          disabled={formDisabled}
-          error={formErrorMessage}
-        >
-          <Input
-            type='text'
-            name='name'
-            placeholder='Название тендера'
-            onChange={handleFormValues}
-            required
-          />
-          <CheckBox
-            name='participants_quantity'
-            onChange={(e) => setFakeParticipantsQuantity(e.target.value)}
-          />
+      <Popup title="Создать тендер" isOpen={isAddPopupOpen} onCloseClick={closeAddPopup}>
+        <Form onSubmit={handleAddTender} buttonText="Создать" disabled={formDisabled} error={formErrorMessage}>
+          <Input type="text" name="name" placeholder="Название тендера" onChange={handleFormValues} required />
+          <CheckBox name="participants_quantity" onChange={(e) => setFakeParticipantsQuantity(e.target.value)} />
         </Form>
       </Popup>
     </>
